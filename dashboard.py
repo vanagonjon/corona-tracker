@@ -9,10 +9,6 @@ import requests
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
-server = app.server
-
 # Grab JH data and make dataframe
 url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series" \
       "/time_series_19-covid-Confirmed.csv"
@@ -28,6 +24,8 @@ locations = df[['province_state', 'country_region']].agg(', '.join, axis=1).valu
 locations = [x.strip(', ') for x in locations]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
+server = app.server
 
 app.layout = html.Div([
     dcc.Dropdown(
