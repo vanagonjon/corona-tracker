@@ -68,7 +68,7 @@ def plot_data(location_list):
 
     layout = go.Layout(
         xaxis={'type': 'category', 'title': "Date"},
-        yaxis={'type': 'linear', 'title': "Value"},
+        yaxis={'type': 'linear', 'title': "Total Diagnosed Cases"},
         #margin={'l': 60, 'b': 40, 'r': 10, 't': 10},
     )
     figure = go.Figure(
