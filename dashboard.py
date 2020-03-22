@@ -37,6 +37,15 @@ def serve_layout():
             multi=True,
         ),
         dcc.Graph(id='main_graph'),
+        dcc.RadioItems(
+            options=[
+                {'label': 'Linear', 'value': 'linear'},
+                {'label': 'Log', 'value': 'log'}
+            ],
+            value='log',
+            labelStyle={'display': 'inline-block'},
+            id = 'linlog'
+        ),
         html.Div(id='dd-output-container')
     ])
     return site
@@ -47,8 +56,9 @@ app.layout = serve_layout
 
 @app.callback(
     Output('main_graph', 'figure'),
-    [Input('locationsdd', 'value')])
-def plot_data(location_list):
+    [Input('locationsdd', 'value'),
+     Input('linlog', 'value')])
+def plot_data(location_list, y_axis_type):
     if location_list is None:
         return {}
     else:
@@ -74,7 +84,7 @@ def plot_data(location_list):
     layout = go.Layout(
         xaxis={'type': 'category', 'title': "Date"},
         yaxis={'type': 'linear', 'title': "Total Cases Diagnosed"},
-        yaxis_type="log",
+        yaxis_type=y_axis_type,
         # margin={'l': 60, 'b': 40, 'r': 10, 't': 10},
     )
     figure = go.Figure(
