@@ -11,7 +11,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 # Grab JH data and make dataframe
 url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series" \
-      "/time_series_19-covid-Confirmed.csv"
+      "/time_series_covid19_confirmed_global.csv"
 s = requests.get(url).content
 df = pd.read_csv(io.StringIO(s.decode('utf-8')))
 # Clean column names
@@ -33,10 +33,11 @@ def serve_layout():
         dcc.Dropdown(
             id='locationsdd',
             options=[{'label': locations[i], 'value': i} for i in df.index.tolist()],
-            value=101,
+            value=225,
             multi=True,
         ),
-        dcc.Graph(id='main_graph'),
+        #dcc.Graph(id='main_graph'),
+        html.Div(id='dd-output-container'),
         dcc.RadioItems(
             options=[
                 {'label': 'Linear', 'value': 'linear'},
@@ -44,9 +45,8 @@ def serve_layout():
             ],
             value='log',
             labelStyle={'display': 'inline-block'},
-            id = 'linlog'
+            id='linlog'
         ),
-        html.Div(id='dd-output-container')
     ])
     return site
 
@@ -55,7 +55,7 @@ app.layout = serve_layout
 
 
 @app.callback(
-    Output('main_graph', 'figure'),
+    Output('dd-output-container', 'children'),
     [Input('locationsdd', 'value'),
      Input('linlog', 'value')])
 def plot_data(location_list, y_axis_type):
@@ -87,10 +87,30 @@ def plot_data(location_list, y_axis_type):
         yaxis_type=y_axis_type,
         # margin={'l': 60, 'b': 40, 'r': 10, 't': 10},
     )
-    figure = go.Figure(
+    figure = dcc.Graph(figure = go.Figure(
         data=fig_data,
-        layout=layout)
-    return figure
+        layout=layout))
+
+    # slides = dcc.Slider(
+    #     min=0,
+    #     max=10,
+    #     step=None,
+    #     marks={
+    #         0: '0 °F',
+    #         3: '3 °F',
+    #         5: '5 °F',
+    #         7.65: '7.65 °F',
+    #         10: '10 °F'
+    #     },
+    #     value=5
+    # )
+
+    children = [
+        html.Div(id='test', children=[
+            figure,
+            ])
+        ]
+    return children
 
 
 if __name__ == '__main__':
