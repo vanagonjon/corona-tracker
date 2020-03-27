@@ -12,7 +12,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 # Grab JH data and make dataframe
 #url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series" \
 #      "/time_series_covid19_confirmed_global.csv"
-url = "https://www.soothsawyer.com/wp-content/uploads/2020/03/time_series_19-covid-Confirmed.csv"
+url = "https://raw.githubusercontent.com/vanagonjon/corona-tracker/timeshift/time_series_19-covid-Confirmed.csv"
 s = requests.get(url).content
 df = pd.read_csv(io.StringIO(s.decode('utf-8')))
 # Clean column names
