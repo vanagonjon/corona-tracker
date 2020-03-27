@@ -19,7 +19,7 @@ df = pd.read_csv(io.StringIO(s.decode('utf-8')))
 # Clean column names
 df.columns = df.columns.str.strip().str.lower().str.replace('/', '_')
 
-dfb = df[df['country_region'].str.contains("U")].index
+dfb = df[df['country_region'].str.contains("Mass")].index
 print(dfb)
 
 # Convert states to string, and remove nan values
