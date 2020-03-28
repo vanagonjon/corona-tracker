@@ -24,7 +24,14 @@ df['province_state'] = df['province_state'].astype(str).str.replace('nan', '')
 locations = df[['province_state', 'country_region']].agg(', '.join, axis=1).values.tolist()
 locations = [x.strip(', ') for x in locations]
 
-mass_index = df[df['province_state'].str.contains("Mass")].index[0] #df[df['country_region'].str.contains("Mass")].index
+top_index = df.iloc[:,-1].sort_values(ascending=False).index.tolist()[1:20]
+
+states = ['Massachusetts','New York','California','Washington','Louisiana','Florida','New Jersy']
+states_index = df.loc[df['province_state'].isin(states)].index.tolist()
+
+print(states_index)
+print(type(states_index))
+#rprint(df.iloc[373].head()
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
@@ -36,7 +43,7 @@ def serve_layout():
         dcc.Dropdown(
             id='locationsdd',
             options=[{'label': locations[i], 'value': i} for i in df.index.tolist()],
-            value=mass_index,
+            value=top_index,
             multi=True,
         ),
         #dcc.Graph(id='main_graph'),
