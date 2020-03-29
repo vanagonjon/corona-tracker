@@ -16,9 +16,9 @@ server = app.server
 
 def serve_layout():
     site = html.Div([
-        html.Div(id='setup', style={'display': 'none'}),
+        html.Div(id='setup', style={'display': 'none'}),  # Hidden div, loads data frames, and drop down data
 
-        html.Div(id='diagnosed_cache', style={'display': 'none'}),
+        html.Div(id='diagnosed_cache', style={'display': 'none'}),  # Hidden div, caches data frame
 
         dcc.Dropdown(
             id='locationsdd',
@@ -131,7 +131,7 @@ def setup(foo):
 
     location_options = [{'label': locations[i], 'value': i} for i in df.index.tolist()]
 
-    top_index = df.iloc[:, -1].sort_values(ascending=False).index.tolist()[1:20]
+    top_index = df.iloc[:, -1].sort_values(ascending=False).index.tolist()[1:15]
 
     return df.to_json(), location_options, top_index
 
