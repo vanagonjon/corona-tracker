@@ -131,7 +131,7 @@ def setup(foo):
 
     location_options = [{'label': locations[i], 'value': i} for i in df.index.tolist()]
 
-    top_index = df.iloc[:, -1].sort_values(ascending=False).index.tolist()[1:15]
+    top_index = df.iloc[:, -1].sort_values(ascending=False).index.tolist()[0:15]
 
     return df.to_json(), location_options, top_index
 
