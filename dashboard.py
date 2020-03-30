@@ -14,7 +14,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 
-def serve_layout():
+def server_layout():
     site = html.Div([
         html.Div(id='setup', style={'display': 'none'}),  # Hidden div, loads data frames, and drop down data
 
@@ -41,7 +41,7 @@ def serve_layout():
     return site
 
 
-app.layout = serve_layout
+app.layout = server_layout
 
 
 @app.callback(
