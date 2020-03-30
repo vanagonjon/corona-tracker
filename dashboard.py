@@ -117,7 +117,7 @@ def plot_data(location_index, location_options, y_axis_type, cached_data):
                Output('locationsdd', 'value')],
               [Input('setup', 'children')])
 def setup(foo):
-    url = "https://raw.githubusercontent.com/vanagonjon/corona-tracker/timeshift/time_series_19-covid-Confirmed.csv"
+    url = "https://raw.githubusercontent.com/vanagonjon/corona-tracker/master/time_series_19-covid-Confirmed.csv"
     s = requests.get(url).content
     df = pd.read_csv(io.StringIO(s.decode('utf-8')))
     # Clean column names
