@@ -1,6 +1,4 @@
-import datetime as dt
 
-import numpy as np
 from flask_caching import Cache
 import dash
 import dash_html_components as html
@@ -83,7 +81,6 @@ app.layout = server_layout
      Input('locationsdd', 'options'),
      Input('linlog', 'value')])
 def plot_data(location_index, location_options, y_axis_type):
-
     if location_index is None:  # skip if data nothing to plot
         raise dash.exceptions.PreventUpdate
 
@@ -146,7 +143,6 @@ def plot_data(location_index, location_options, y_axis_type):
                 row=2, col=1
             )
 
-
     layout_case = go.Layout(
         xaxis={'type': 'category', 'title': "Date"},
         yaxis={'type': 'linear', 'title': "Total Cases Diagnosed"},
@@ -163,10 +159,12 @@ def plot_data(location_index, location_options, y_axis_type):
         height=800,
         title_text="Deaths and Confirmed Cases for States and Countries",
     )
-    fig.update_yaxes(title="Total Cases Diagnosed", type=y_axis_type, tickvals=[1, 10, 100, 1000, 10000, 100000, 1000000], row=1, col=1)
-    fig.update_yaxes(title="Total Deaths", type=y_axis_type, tickvals=[1, 10, 100, 1000, 10000, 100000, 1000000], row=2, col=1)
-    fig.update_xaxes(showticklabels = False, dtick=1, row=1, col=1)
-    fig.update_xaxes(title_text="Date", row=2, col=1)
+    fig.update_yaxes(title="Total Cases Diagnosed", type=y_axis_type,
+                     tickvals=[1, 10, 100, 1000, 10000, 100000, 1000000], row=1, col=1)
+    fig.update_yaxes(title="Total Deaths", type=y_axis_type, tickvals=[1, 10, 100, 1000, 10000, 100000, 1000000], row=2,
+                     col=1)
+    fig.update_xaxes(showticklabels=False, dtick=2, row=1, col=1)
+    fig.update_xaxes(title_text="Date", dtick=2, row=2, col=1)
 
     return fig
 
