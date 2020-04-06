@@ -1,5 +1,6 @@
 
 from flask_caching import Cache
+from flask_talisman import Talisman
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
@@ -15,6 +16,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 colors = px.colors.carto.Vivid + px.colors.carto.Bold
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+# Talisman(app, content_security_policy=None)
 cache = Cache(app.server, config={
     'CACHE_TYPE': 'filesystem',
     'CACHE_DIR': 'cache-directory'
@@ -86,7 +88,7 @@ def plot_data(location_index, location_options, y_axis_type):
 
     df_cases, df_deaths = dataframe()  # get data from cache
 
-    fig = make_subplots(rows=2, cols=1)
+    fig = make_subplots(rows=2, cols=1, vertical_spacing=0.05)
     i = 0
     if location_index is None:
         return {}
@@ -160,11 +162,10 @@ def plot_data(location_index, location_options, y_axis_type):
         title_text="Deaths and Confirmed Cases for States and Countries",
     )
     fig.update_yaxes(title="Total Cases Diagnosed", type=y_axis_type,
-                     tickvals=[1, 10, 100, 1000, 10000, 100000, 1000000], row=1, col=1)
-    fig.update_yaxes(title="Total Deaths", type=y_axis_type, tickvals=[1, 10, 100, 1000, 10000, 100000, 1000000], row=2,
-                     col=1)
-    fig.update_xaxes(showticklabels=False, dtick=2, row=1, col=1)
-    fig.update_xaxes(title_text="Date", dtick=2, row=2, col=1)
+                     tickvals=[1, 10, 100, 1000, 10000, 100000, 1000000], row=1)
+    fig.update_yaxes(title="Total Deaths", type=y_axis_type, tickvals=[1, 10, 100, 1000, 10000, 100000, 1000000], row=2)
+    fig.update_xaxes(showticklabels=False, dtick=1, row=1)
+    fig.update_xaxes(title_text="Date", dtick=1, row=2)
 
     return fig
 
