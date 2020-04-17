@@ -29,8 +29,8 @@ TIMEOUT = 600
 
 @cache.memoize(timeout=TIMEOUT)
 def query_data():
-    url_cases = "https://raw.githubusercontent.com/vanagonjon/corona-tracker/master/time_series_19-covid-Confirmed.csv"
-    url_deaths = "https://raw.githubusercontent.com/vanagonjon/corona-tracker/master/time_series_19-covid-Deaths.csv"
+    url_cases = "https://raw.githubusercontent.com/vanagonjon/corona-data/master/time_series_19-covid-Confirmed.csv"
+    url_deaths = "https://raw.githubusercontent.com/vanagonjon/corona-data/master/time_series_19-covid-Deaths.csv"
     s_cases = requests.get(url_cases).content
     df_cases = pd.read_csv(io.StringIO(s_cases.decode('utf-8')))
     s_deaths = requests.get(url_deaths).content
